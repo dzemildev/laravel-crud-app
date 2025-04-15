@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id');
-            $table->foreignId('member_id');
+
             $table->timestamps();
         });
     }
