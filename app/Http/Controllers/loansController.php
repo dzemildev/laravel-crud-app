@@ -46,4 +46,9 @@ class loansController extends Controller
             $loans->delete();
             return redirect()->route('loans.index')->with('success', 'Loans deleted successfully!');
         }
+        public function show($id){
+
+    $loans = loans::findOrFail($id); 
+    return view('loans.show', compact('loans')); 
+        }
     }

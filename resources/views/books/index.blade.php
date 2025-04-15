@@ -89,6 +89,7 @@
                 <th>Year of publishing</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Show</th>
 
             </tr>
             @foreach($books as $books)
@@ -109,6 +110,7 @@
                         <input type="submit" value="Delete" class="btn btn-danger">
                     </form>
                 </td>
+                <td><a href="{{ route('books.show', $books->id) }}" class="btn btn-info btn-sm">Show</a></td>
 
             </tr>
             @endforeach

@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/books/{books}/edit', [booksController::class, 'edit'])->name('books.edit');
     Route::put('/books/{books}/update', [booksController::class, 'update'])->name('books.update');
     Route::delete('/books/{books}/delete', [booksController::class, 'Delete'])->name('books.delete');
+    Route::get('/books/{books}', [booksController::class, 'show'])->name('books.show');
 
 
 
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/members/{members}/edit', [membersController::class, 'edit'])->name('members.edit');
     Route::put('/members/{members}/update', [membersController::class, 'update'])->name('members.update');
     Route::delete('/members/{members}/delete', [membersController::class, 'Delete'])->name('members.delete');
+    Route::get('/members/{members}', [membersController::class, 'show'])->name('members.show');
 
 
 
@@ -45,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/loans/{loans}/edit', [loansController::class, 'edit'])->name('loans.edit');
     Route::put('/loans/{loans}/update', [loansController::class, 'update'])->name('loans.update');
     Route::delete('/loans/{loans}/delete', [loansController::class, 'Delete'])->name('loans.delete');
+    Route::get('/loans/{loan}', [loansController::class, 'show'])->name('loans.show');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

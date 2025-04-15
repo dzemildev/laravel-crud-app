@@ -84,6 +84,7 @@
                 <th>Phone</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Show</th>
 
             </tr>
             @foreach($members as $members)
@@ -104,6 +105,7 @@
                         <input type="submit" value="Delete" class="btn btn-danger">
                     </form>
                 </td>
+                <td><a href="{{ route('members.show', $members->id) }}" class="btn btn-info btn-sm">Show</a></td>
 
             </tr>
             @endforeach
