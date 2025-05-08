@@ -3,11 +3,13 @@ name: Tests
 on:
   push:
     branches:
+      - main
       - master
       - '*.x'
   pull_request:
   schedule:
     - cron: '0 0 * * *'
+  workflow_dispatch: # ➕ omogućava ručno pokretanje iz GitHub Actions taba
 
 permissions:
   contents: read
