@@ -56,22 +56,21 @@ jobs:
           COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
 
       - name: Write .env file
-          run: |
-            echo "APP_KEY=" > .env
-            echo "APP_ENV=testing" >> .env
-            echo "DB_CONNECTION=mysql" >> .env
-            echo "DB_HOST=127.0.0.1" >> .env
-            echo "DB_PORT=3306" >> .env
-            echo "DB_DATABASE=library" >> .env
-            echo "DB_USERNAME=root" >> .env
-            echo "DB_PASSWORD=" >> .env
-        
+        run: |
+          echo "APP_ENV=testing" > .env
+          echo "APP_KEY=" >> .env
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=library" >> .env
+          echo "DB_USERNAME=root" >> .env
+          echo "DB_PASSWORD=" >> .env
 
       - name: Generate app key
         run: php artisan key:generate
 
       - name: Run migrations
-        run: php artisan migrate --no-interaction --env=testing
+        run: php artisan migrate --no-interaction
 
       - name: Execute tests
         run: php artisan test
