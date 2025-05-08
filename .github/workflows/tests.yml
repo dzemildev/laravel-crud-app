@@ -36,12 +36,17 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
 
       - name: Copy environment file
         run: cp .env.example .env
 
       - name: Generate app key
         run: php artisan key:generate
+
+      - name: Run migrations
+        run: php artisan migrate --no-interaction --env=testing
 
       - name: Execute tests
         run: php artisan test
