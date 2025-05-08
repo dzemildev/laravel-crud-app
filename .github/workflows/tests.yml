@@ -9,7 +9,7 @@ on:
   pull_request:
   schedule:
     - cron: '0 0 * * *'
-  workflow_dispatch: # ➕ omogućava ručno pokretanje iz GitHub Actions taba
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,6 +17,20 @@ permissions:
 jobs:
   tests:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: laravel_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     strategy:
       fail-fast: true
@@ -33,7 +47,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql
           coverage: none
 
       - name: Install Composer dependencies
@@ -43,6 +57,14 @@ jobs:
 
       - name: Copy environment file
         run: cp .env.example .env
+
+      - name: Set up database configuration
+        run: |
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_PORT=.*/DB_PORT=3306/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=laravel_test/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=/' .env
 
       - name: Generate app key
         run: php artisan key:generate
